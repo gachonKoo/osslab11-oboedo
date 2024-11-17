@@ -1,8 +1,10 @@
 name: Autograding Tests
 
 'on':
-  - push
-  - repository_dispatch
+  push:
+    branches:
+      - main  # 필요한 브랜치 지정
+  repository_dispatch:
 
 permissions:
   checks: write
@@ -16,6 +18,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Python 버전 지정
 
       - name: Run tests
         id: test
